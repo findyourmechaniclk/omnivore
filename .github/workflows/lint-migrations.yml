@@ -1,3 +1,8 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 1 optimization:
+# - [MEDIUM] Add concurrency group to "lint-migrations.yml"
+# Estimated savings: ~2 min/run
+#
 name: Lint Migrations
 
 on:
@@ -6,6 +11,10 @@ on:
     paths:
       - 'packages/db/migrations/**'
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   lint_migrations:
     runs-on: ubuntu-latest
